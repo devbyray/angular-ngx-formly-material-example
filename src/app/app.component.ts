@@ -6,12 +6,13 @@ import { FormlyFieldConfig } from '@ngx-formly/core'
 	selector: 'app-root',
 	// templateUrl: './app.component.html',
 	template: `
-		<div>
-			<h1>{{ title }}</h1>
+		<div class="container">
+      <h1>{{ title }}</h1>
+      <p>This is an example form based on the Medium tutorial.</p>
 
 			<form [formGroup]="form" (ngSubmit)="onSubmit()">
 				<formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
-				<button type="submit" class="btn btn-default">Submit</button>
+				<button type="submit" mat-raised-button color="primary" class="button--submit">Submit</button>
       </form>
       <pre>
         {{model | json}}
@@ -21,7 +22,7 @@ import { FormlyFieldConfig } from '@ngx-formly/core'
 	styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-	title = 'angular-ngx-formly-material'
+	title = 'Angular NGX-Formly with Material'
 	form = new FormGroup({})
 	model = { 
     email: "email@gmail.com",
