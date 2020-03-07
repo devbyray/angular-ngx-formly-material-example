@@ -12,7 +12,10 @@ import { FormlyFieldConfig } from '@ngx-formly/core'
 			<form [formGroup]="form" (ngSubmit)="onSubmit()">
 				<formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
 				<button type="submit" class="btn btn-default">Submit</button>
-			</form>
+      </form>
+      <pre>
+        {{model | json}}
+      </pre>
 		</div>
 	`,
 	styleUrls: ['./app.component.scss'],
@@ -102,7 +105,7 @@ export class AppComponent {
         description: 'Fill in your gender',
         options: [
           { value: 1, label: 'Male' },
-          { value: 2, label: 'Femail' },
+          { value: 2, label: 'Female' },
           { value: 3, label: 'I don\'t want to share that' },
         ],
       },
