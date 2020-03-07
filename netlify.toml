@@ -1,0 +1,6 @@
+[build]
+  command = "npm run build:prod"
+  publish = "dist/angular-ngx-formly-material"
+
+[context.deploy-preview]
+  command = "npm run build-preview"
