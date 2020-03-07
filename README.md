@@ -1,5 +1,7 @@
 # AngularNgxFormlyMaterial
 
+![https://raw.githubusercontent.com/raymonschouwenaar/angular-ngx-formly-material-example/master/angular-ngx-formly-screenshot.png]()
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.1.
 
 ## Development server
