@@ -7,6 +7,8 @@ import { AppComponent } from './app.component'
 import { ReactiveFormsModule } from '@angular/forms'
 import { FormlyModule } from '@ngx-formly/core'
 import { FormlyMaterialModule } from '@ngx-formly/material'
+import { FormlyMatDatepickerModule } from '@ngx-formly/material/datepicker';
+import { FormlyMatToggleModule } from '@ngx-formly/material/toggle';
 
 import { MatDatepickerModule } from '@angular/material/datepicker'
 import { MatDialogModule } from '@angular/material/dialog'
@@ -16,6 +18,7 @@ import { MatRadioModule } from '@angular/material/radio'
 import { MatSelectModule } from '@angular/material/select'
 import { MatButtonModule } from '@angular/material/button'
 import { MatCheckboxModule } from '@angular/material/checkbox'
+import { MatNativeDateModule } from '@angular/material/core'
 
 @NgModule({
 	declarations: [AppComponent],
@@ -33,6 +36,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox'
 		MatInputModule,
 		MatRadioModule,
 		MatSelectModule,
+		
+		MatNativeDateModule,
+		FormlyMatDatepickerModule,
+		FormlyMatToggleModule,
 
 		FormlyModule.forRoot(),
 		FormlyMaterialModule,
