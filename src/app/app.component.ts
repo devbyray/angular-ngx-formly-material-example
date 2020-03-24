@@ -41,7 +41,8 @@ export class AppComponent {
       templateOptions: {
         label: 'Name',
         placeholder: 'Enter name',
-      }
+        required: true,
+      },
     },
     {
       key: 'email',
@@ -50,7 +51,9 @@ export class AppComponent {
         type: 'email',
         label: 'Email',
         placeholder: 'Enter email',
-      }
+        minLength: 3,
+        maxLength: 10,
+      },
     },
     {
       key: 'amount',
@@ -59,6 +62,8 @@ export class AppComponent {
         type: 'number',
         label: 'Amount',
         placeholder: 'Enter amount',
+        min: 1,
+        max: 15
       }
     },
     {
