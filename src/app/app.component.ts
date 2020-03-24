@@ -30,7 +30,7 @@ export class AppComponent {
     terms: true,
     date_of_birth: new Date(),
     amount: 100,
-    name: "lskdfnlksdf",
+    name: "",
     description: "laksndlkansd↵asd↵nlkxclkzxc↵",
     gender: 3 
   }
@@ -47,6 +47,7 @@ export class AppComponent {
     {
       key: 'email',
       type: 'input',
+      hideExpression: '!model.name',
       templateOptions: {
         type: 'email',
         label: 'Email',
