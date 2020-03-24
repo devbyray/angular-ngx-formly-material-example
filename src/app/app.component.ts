@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 import { FormGroup } from '@angular/forms'
-import { FormlyFieldConfig } from '@ngx-formly/core'
+import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core'
 
 @Component({
 	selector: 'app-root',
@@ -11,7 +11,8 @@ import { FormlyFieldConfig } from '@ngx-formly/core'
       <p>This is an example form based on the Medium tutorial.</p>
 
 			<form [formGroup]="form" (ngSubmit)="onSubmit()">
-				<formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
+        <formly-form [form]="form" [fields]="fields" [model]="model" [options]="options"></formly-form>
+        <button type="button" mat-raised-button color="warn" (click)="options.resetModel()">Reset</button>
 				<button type="submit" mat-raised-button color="primary">Submit</button>
       </form>
       <pre>
@@ -23,15 +24,16 @@ import { FormlyFieldConfig } from '@ngx-formly/core'
 })
 export class AppComponent {
 	title = 'Angular NGX-Formly with Material'
-	form = new FormGroup({})
+  form = new FormGroup({})
+  options: FormlyFormOptions = {};
 	model = { 
-    email: "email@gmail.com",
+    email: "",
     terms_1: false,
-    terms: true,
-    date_of_birth: new Date(),
+    terms: false,
+    date_of_birth: '',
     amount: 100,
     name: "",
-    description: "laksndlkansd↵asd↵nlkxclkzxc↵",
+    description: "",
     gender: 3 
   }
 	fields: FormlyFieldConfig[] = [
@@ -53,7 +55,6 @@ export class AppComponent {
         label: 'Email',
         placeholder: 'Enter email',
         minLength: 3,
-        maxLength: 10,
       },
     },
     {
