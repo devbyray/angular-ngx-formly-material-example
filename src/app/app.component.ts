@@ -67,6 +67,17 @@ export class AppComponent {
       }
     },
     {
+      key: 'ip',
+      type: 'input',
+      templateOptions: {
+        label: 'IP Address (using custom validation declared in ngModule)',
+        required: true,
+      },
+      validators: {
+        validation: ['ip'],
+      },
+     },
+    {
       key: 'date_of_birth',
       type: 'datepicker',
       templateOptions: {
