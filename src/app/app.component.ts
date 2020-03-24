@@ -1,6 +1,7 @@
 import { Component } from '@angular/core'
 import { FormGroup } from '@angular/forms'
-import { FormlyFieldConfig } from '@ngx-formly/core'
+import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core'
+import { HttpClient } from '@angular/common/http'
 
 @Component({
 	selector: 'app-root',
@@ -11,8 +12,9 @@ import { FormlyFieldConfig } from '@ngx-formly/core'
       <p>This is an example form based on the Medium tutorial.</p>
 
 			<form [formGroup]="form" (ngSubmit)="onSubmit()">
-				<formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
-				<button type="submit" mat-raised-button color="primary" class="button--submit">Submit</button>
+        <formly-form [form]="form" [fields]="fields" [model]="model" [options]="options"></formly-form>
+        <button type="button" mat-raised-button color="warn" (click)="options.resetModel()">Reset</button>
+				<button type="submit" mat-raised-button color="primary">Submit</button>
       </form>
       <pre>
         {{model | json}}
@@ -23,15 +25,19 @@ import { FormlyFieldConfig } from '@ngx-formly/core'
 })
 export class AppComponent {
 	title = 'Angular NGX-Formly with Material'
-	form = new FormGroup({})
+  form = new FormGroup({})
+  options: FormlyFormOptions = {};
+
+  constructor(private http: HttpClient) { }
+  
 	model = { 
-    email: "email@gmail.com",
+    email: "",
     terms_1: false,
-    terms: true,
-    date_of_birth: new Date(),
+    terms: false,
+    date_of_birth: '',
     amount: 100,
-    name: "lskdfnlksdf",
-    description: "laksndlkansd↵asd↵nlkxclkzxc↵",
+    name: "",
+    description: "",
     gender: 3 
   }
 	fields: FormlyFieldConfig[] = [
@@ -41,16 +47,19 @@ export class AppComponent {
       templateOptions: {
         label: 'Name',
         placeholder: 'Enter name',
-      }
+        required: true,
+      },
     },
     {
       key: 'email',
       type: 'input',
+      hideExpression: '!model.name',
       templateOptions: {
         type: 'email',
         label: 'Email',
         placeholder: 'Enter email',
-      }
+        minLength: 3,
+      },
     },
     {
       key: 'amount',
@@ -59,8 +68,21 @@ export class AppComponent {
         type: 'number',
         label: 'Amount',
         placeholder: 'Enter amount',
+        min: 1,
+        max: 15
       }
     },
+    {
+      key: 'ip',
+      type: 'input',
+      templateOptions: {
+        label: 'IP Address (using custom validation declared in ngModule)',
+        required: true,
+      },
+      validators: {
+        validation: ['ip'],
+      },
+     },
     {
       key: 'date_of_birth',
       type: 'datepicker',
@@ -111,10 +133,54 @@ export class AppComponent {
         ],
       },
     },
+    // Repeatable section
+    {
+      key: 'investments',
+      type: 'repeat',
+      templateOptions: {
+        addText: 'Add another investment',
+      },
+      fieldArray: {
+        fieldGroup: [
+          {
+            type: 'input',
+            key: 'investmentName',
+            templateOptions: {
+              label: 'Name of Investment:',
+              required: true,
+            },
+          },
+          {
+            type: 'datepicker',
+            key: 'investmentDate',
+            templateOptions: {
+              label: 'Date of Investment:',
+            },
+          },
+          {
+            key: 'amount',
+            type: 'input',
+            templateOptions: {
+              type: 'number',
+              label: 'Amount',
+              placeholder: 'Enter amount',
+              min: 1,
+              max: 15
+            }
+          },
+        ],
+      },
+    },
 	]
 
 	onSubmit() {
-		console.log(this.model)
+		if (this.form.valid) {
+      this.http.post('url', this.model, null).subscribe((response) => {
+        console.log('response:', response)
+      }, (error) => {
+        console.error('error:', error)
+      })
+    }
   }
   
 }
