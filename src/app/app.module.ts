@@ -1,6 +1,6 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { BrowserModule } from '@angular/platform-browser'
-import { NgModule } from '@angular/core'
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
 
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
@@ -19,6 +19,7 @@ import { MatSelectModule } from '@angular/material/select'
 import { MatButtonModule } from '@angular/material/button'
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatNativeDateModule } from '@angular/material/core'
+import { RepeatTypeComponent } from './formly-types/repeat-type.formly.component'
 
 export function validateRequired(err, field: FormlyFieldConfig) {
 	return `This field is required`
@@ -45,7 +46,7 @@ export function IpValidatorMessage(err, field: FormlyFieldConfig) {
 }
 
 @NgModule({
-	declarations: [AppComponent],
+	declarations: [AppComponent, RepeatTypeComponent],
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
@@ -78,10 +79,14 @@ export function IpValidatorMessage(err, field: FormlyFieldConfig) {
 			validators: [
 				{ name: 'ip', validation: IpValidator },
 			],
+			types: [
+				{ name: 'repeat', component: RepeatTypeComponent },
+			],
 		}),
 		FormlyMaterialModule,
 	],
 	providers: [],
 	bootstrap: [AppComponent],
+	schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule {}

@@ -12,7 +12,7 @@ import { FormlyFieldConfig } from '@ngx-formly/core'
 
 			<form [formGroup]="form" (ngSubmit)="onSubmit()">
 				<formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
-				<button type="submit" mat-raised-button color="primary" class="button--submit">Submit</button>
+				<button type="submit" mat-raised-button color="primary">Submit</button>
       </form>
       <pre>
         {{model | json}}
@@ -124,6 +124,44 @@ export class AppComponent {
           { value: 1, label: 'Male' },
           { value: 2, label: 'Female' },
           { value: 3, label: 'I don\'t want to share that' },
+        ],
+      },
+    },
+    // Repeatable section
+    {
+      key: 'investments',
+      type: 'repeat',
+      templateOptions: {
+        addText: 'Add another investment',
+      },
+      fieldArray: {
+        fieldGroup: [
+          {
+            type: 'input',
+            key: 'investmentName',
+            templateOptions: {
+              label: 'Name of Investment:',
+              required: true,
+            },
+          },
+          {
+            type: 'datepicker',
+            key: 'investmentDate',
+            templateOptions: {
+              label: 'Date of Investment:',
+            },
+          },
+          {
+            key: 'amount',
+            type: 'input',
+            templateOptions: {
+              type: 'number',
+              label: 'Amount',
+              placeholder: 'Enter amount',
+              min: 1,
+              max: 15
+            }
+          },
         ],
       },
     },
