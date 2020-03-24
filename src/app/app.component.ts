@@ -1,6 +1,7 @@
 import { Component } from '@angular/core'
 import { FormGroup } from '@angular/forms'
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core'
+import { HttpClient } from '@angular/common/http'
 
 @Component({
 	selector: 'app-root',
@@ -26,6 +27,9 @@ export class AppComponent {
 	title = 'Angular NGX-Formly with Material'
   form = new FormGroup({})
   options: FormlyFormOptions = {};
+
+  constructor(private http: HttpClient) { }
+  
 	model = { 
     email: "",
     terms_1: false,
@@ -170,7 +174,13 @@ export class AppComponent {
 	]
 
 	onSubmit() {
-		console.log(this.model)
+		if (this.form.valid) {
+      this.http.post('url', this.model, null).subscribe((response) => {
+        console.log('response:', response)
+      }, (error) => {
+        console.error('error:', error)
+      })
+    }
   }
   
 }
